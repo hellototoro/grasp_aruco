@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<launch>
+    <arg name="load_gripper"    default="true"/>
+    <arg name="rviz_tutorial"   default="false"/>
+    <arg name="align_depth"     default="true"/>
+
+    <group ns="panda">
+        <include file="$(find grasp_ros)/launch/panda_arm.launch"/>
+    </group>
+
+    <group ns="realsense">
+        <include file="$(find grasp_ros)/launch/d435_camera.launch"/>
+    </group>
+
+    <include file="$(find easy_handeye)/launch/publish.launch">
+        <arg name="eye_on_hand" value="false"/>
+        <arg name="namespace_prefix" value="panda_eob_calib"/>
+        <arg name="calibration_file" value="$(find my_calibrate)/config/panda_eob_calib_eye_on_base.yaml"/>
+        <!-- <arg name="robot_base_frame" value="panda_link0"/> -->
+        <!-- <arg name="tracking_base_frame" value="camera_bottom_screw_frame"/> -->
+    </include>
+
+</launch>
+

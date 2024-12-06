@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda_with_realsense">
+    <xacro:arg name="arm_id" default="panda" />
+    <xacro:arg name="hand" default="false" />
+
+    <xacro:include filename="$(find franka_description)/robots/panda/panda.urdf.xacro" ns="panda"/>
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" ns="realsense"/>
+
+    <xacro:sensor_d435 parent="panda_link0" name="camera">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:sensor_d435>
+
+</robot>
