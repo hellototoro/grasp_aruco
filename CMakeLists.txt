@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(grasp_ros)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -17,6 +17,9 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   rviz_visual_tools
   moveit_visual_tools
+  moveit_task_constructor_core
+  moveit_task_constructor_msgs
+  moveit_task_constructor_visualization
 )
 
 ## System dependencies are found with CMake's conventions
@@ -113,6 +116,9 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES grasp_ros
   CATKIN_DEPENDS roscpp tf moveit_core moveit_ros_planning_interface geometry_msgs
+  moveit_task_constructor_core
+  moveit_task_constructor_msgs
+  moveit_task_constructor_visualization
 #  DEPENDS system_lib
 )
 

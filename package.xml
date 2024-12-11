@@ -62,6 +62,9 @@
   <build_depend>geometric_shapes</build_depend>
   <build_depend>moveit_visual_tools</build_depend>
   <build_depend>rviz_visual_tools</build_depend>
+  <build_depend>moveit_task_constructor_core</build_depend>
+  <build_depend>moveit_task_constructor_msgs</build_depend>
+  <build_depend>moveit_task_constructor_visualization</build_depend>
 
   <exec_depend>roscpp</exec_depend>
   <exec_depend>tf</exec_depend>
@@ -72,6 +75,10 @@
   <exec_depend>interactive_markers</exec_depend>
   <exec_depend>moveit_visual_tools</exec_depend>
   <exec_depend>rviz_visual_tools</exec_depend>
+  <exec_depend>moveit_task_constructor_core</exec_depend>
+  <exec_depend>moveit_task_constructor_msgs</exec_depend>
+  <exec_depend>moveit_task_constructor_visualization</exec_depend>
+  <exec_depend>moveit_task_constructor_capabilities</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

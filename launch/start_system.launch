@@ -6,7 +6,13 @@
 
     <group ns="panda">
         <include file="$(find grasp_ros)/launch/panda_arm.launch"/>
+        <param name="move_group/capabilities" value="move_group/ExecuteTaskSolutionCapability" />
+        <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
+        <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
+        <param name="move_group/trajectory_execution/allowed_velocity_scaling" value="0.2" /> <!-- 设置速度比例为50% -->
+        <param name="move_group/trajectory_execution/allowed_acceleration_scaling" value="0.2" /> <!-- 设置加速度比例为50% -->
     </group>
+    <!-- <param name="move_group/plugin_capabilities" value="$(find moveit_task_constructor_demo)/capabilities_plugin_description.xml" /> -->
 
     <group ns="realsense">
         <include file="$(find grasp_ros)/launch/d435_camera.launch"/>
