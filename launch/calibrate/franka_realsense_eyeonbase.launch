@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<launch>
+    <arg name="namespace_prefix" default="panda_eob_calib"/>
+
+    <!-- (start your robot's MoveIt! stack, e.g. include its moveit_planning_execution.launch) -->
+    <!-- <include file="$(find panda_moveit_config)/launch/franka_control.launch">
+        <arg name="robot_ip" value="fci"/>
+        <arg name="load_gripper" value="false"/>
+    </include> -->
+
+    <!-- (start your tracking system's ROS driver) -->
+    <!-- <include file="$(find realsense2_camera)/launch/rs_camera.launch" /> -->
+    <arg name="arm_namespace" default="" />
+    <arg name="camera_namespace" default="" />
+
+    <!-- fill in the following parameters according to your tracking system -->
+    <arg name="markerId"            default="9"/>      <!-- set your marker id -->
+    <arg name="markerSize"          default="0.15"/>    <!-- in m -->
+    <arg name="reference_frame"     default="camera_bottom_screw_frame"/>  <!-- leave empty and the pose will be published wrt param parent_name -->
+    <arg name="camera_frame"        default="camera_color_optical_frame" />
+    <arg name="marker_frame"        default="aruco_marker_frame"/>
+    <arg name="camera_image_topic"  default="$(arg camera_namespace)/camera/color/image_raw" />
+    <arg name="camera_info_topic"   default="$(arg camera_namespace)/camera/color/camera_info" />
+    <!-- Corner refinement options have been removed in ArUco 3.0.0, corner_refinement ROS parameter is deprecated -->
+    <!-- <arg name="corner_refinement" default="LINES" />--> <!-- NONE, HARRIS, LINES, SUBPIX -->
+
+    <node pkg="aruco_ros" type="single" name="aruco_single">
+        <remap to="$(arg camera_info_topic)"    from="/camera_info" />
+        <remap to="$(arg camera_image_topic)"   from="/image" />
+        <param name="image_is_rectified"        value="True"/>
+        <param name="marker_id"                 value="$(arg markerId)"/>
+        <param name="marker_size"               value="$(arg markerSize)"/>
+        <param name="reference_frame"           value="$(arg reference_frame)"/>   <!-- frame in which the marker pose will be refered -->
+        <param name="camera_frame"              value="$(arg camera_frame)"/>
+        <param name="marker_frame"              value="$(arg marker_frame)"/>
+        <!-- <param name="corner_refinement"  value="$(arg corner_refinement)" /> -->
+    </node>
+
+
+    <!-- (start hand-eye-calibration) -->
+    <include file="$(find easy_handeye)/launch/calibrate.launch">
+        <arg name="eye_on_hand"         value="false"/>
+        <arg name="namespace_prefix"    value="$(arg namespace_prefix)"/>
+        <arg name="move_group"          value="panda_arm"  doc="the name of move_group for the automatic robot motion with MoveIt!" />
+        <arg name="move_group_namespace" value="$(arg arm_namespace)"/>
+
+        <!-- 等会儿试一下 true -->
+        <arg name="freehand_robot_movement" value="false"/>
+        <!-- <arg name="publish_dummy" value="false" /> -->
+
+        <!-- fill in the following parameters according to your robot's published tf frames -->
+        <arg name="robot_base_frame"        value="panda_link0"/>
+        <arg name="robot_effector_frame"    value="panda_link7"/>
+
+        <!-- fill in the following parameters according to your tracking system's published tf frames -->
+        <arg name="tracking_base_frame"     value="$(arg reference_frame)"/>
+        <arg name="tracking_marker_frame"   value="$(arg marker_frame)"/>
+
+        <arg name="robot_velocity_scaling"      value="0.5" />
+        <arg name="robot_acceleration_scaling"  value="0.2" />
+        <!-- <remap from="/robot_description" to="/panda/robot_description" /> -->
+
+    </include>
+
+    <!-- (publish tf after the calibration) -->
+    <!-- roslaunch easy_handeye publish.launch eye_on_hand:=false namespace_prefix:=$(arg namespace_prefix) -->
+
+</launch>
+

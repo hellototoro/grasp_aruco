@@ -9,10 +9,7 @@
         <param name="move_group/capabilities" value="move_group/ExecuteTaskSolutionCapability" />
         <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
         <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
-        <param name="move_group/trajectory_execution/allowed_velocity_scaling" value="0.2" /> <!-- 设置速度比例为50% -->
-        <param name="move_group/trajectory_execution/allowed_acceleration_scaling" value="0.2" /> <!-- 设置加速度比例为50% -->
     </group>
-    <!-- <param name="move_group/plugin_capabilities" value="$(find moveit_task_constructor_demo)/capabilities_plugin_description.xml" /> -->
 
     <group ns="realsense">
         <include file="$(find grasp_ros)/launch/d435_camera.launch"/>
@@ -21,9 +18,13 @@
     <include file="$(find easy_handeye)/launch/publish.launch">
         <arg name="eye_on_hand" value="false"/>
         <arg name="namespace_prefix" value="panda_eob_calib"/>
-        <arg name="calibration_file" value="$(find my_calibrate)/config/panda_eob_calib_eye_on_base.yaml"/>
+        <arg name="calibration_file" value="$(find grasp_ros)/config/calibrate/panda_eob_calib_eye_on_base.yaml"/>
         <!-- <arg name="robot_base_frame" value="panda_link0"/> -->
         <!-- <arg name="tracking_base_frame" value="camera_bottom_screw_frame"/> -->
+    </include>
+
+    <include file="$(find grasp_ros)/launch/calibrate/aruco_test.launch">
+        <arg name="camera_ns" value="realsense"/>
     </include>
 
 </launch>

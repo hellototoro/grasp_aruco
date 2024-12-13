@@ -212,9 +212,14 @@ install(FILES
   launch/start_system.launch
   launch/panda_arm.launch
   launch/d435_camera.launch
+  launch/calibrate/aruco_test.launch
+  launch/calibrate/franka_realsense_eyeonbase.launch
+  launch/calibrate/publish.launch
+  config/calibrate/panda_eob_calib_eye_on_base.yaml
   urdf/d435_camera.urdf.xacro
   urdf/panda_with_realsense.urdf.xacro
   rviz/d435_camera.rviz
+  rviz/calibrate/aruco_test.rviz
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
