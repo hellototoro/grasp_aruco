@@ -12,6 +12,8 @@
 
    1.2 外参标定：使用[easy_handeye](https://github.com/IFL-CAMP/easy_handeye)
 
+   ![calibrate_result](resource/calibrate_result.png)
+
 2. 制作[Aruco Tag](https://chev.me/arucogen/)：
 
    打印Aruco Tag，并将其贴在物体表面：
